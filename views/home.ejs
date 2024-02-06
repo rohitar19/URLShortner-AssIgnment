@@ -1,50 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <style>
-      body {
-        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      }
-    </style>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home Page</title>
   </head>
-  <body>
-    <h1>URL Shortener</h1>
-    <% if (locals.id) { %>
-    <p>URL Generated: http://localhost:8001/url/<%= id %></p>
-    <% } %>
+  <body class="bg-dark text-white"">  
+    <div class="container ">
 
-    <div>
-      <form method="POST" action="/url">
-        <label>Enter Your Original URL</label>
-        <input type="text" name="url" placeholder="https://example.com" />
-        <button type="submit">Generate</button>
-      </form>
-    </div>
-    <div style="margin-top: 30px">
-      <% if (locals.urls) { %>
-      <table>
-        <thead>
-          <th>S. No</th>
-          <th>ShortID</th>
-          <th>Redirect</th>
-          <th>Clicks</th>
-        </thead>
-        <tbody>
-          <% urls.forEach((url, index) => { %>
-          <tr>
-            <td><%= index + 1 %></td>
-            <td><%= url.shortId %></td>
-            <td><%= url.redirectURL %></td>
-            <td><%= url.visitHistory.length %></td>
-          </tr>
-          <% }) %>
-        </tbody>
-      </table>
-      <% } %>
-    </div>
+      <div class="d-flex justify-content-end">
+        <button onclick="logout()" class="btn btn-danger mt-3">Logout</button>
+      </div>
+
+      <h1>URL Shortener</h1>
+    
+      <div >
+        <form method="POST" action="/url" class="my-4 form-inline">
+          <label for="fullUrl" class="sr-only"> URL</label>
+          <input type="text" name="url" placeholder="https://example.com" required class="form-control col mr-2" />
+          <button type="submit" class="btn btn-success mx-auto my-2 py-2">Generate</button>
+        </form>
+      </div>
+
+     
+      <div class="container">
+        <% if (locals.id) { %>
+          <p>URL Generated: <a href="http://localhost:8001/url/<%= id %>">http://localhost:8001/url/<%= id %></a></p>
+        <% } %>
+  
+        <div style="margin-top: 30px">
+          <% if (locals.urls && urls.length > 0) { %>
+          <table class="table table-striped table-bordered table-dark">
+            <thead>
+              <tr>
+                <th>S. No</th>
+                <th>ShortID</th>
+                <th>Redirect</th>
+                <th>Clicks</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% urls.forEach((url, index) => { %>
+                <tr>
+                  <td><%= index + 1 %></td>
+                  <td><%= url.shortId %></td>
+                  <td><a href="<%= url.redirectURL %>" target="_blank"><%= url.redirectURL %></a></td>
+                  <td><%= url.visitHistory.length %></td>
+                </tr>
+              <% }) %>
+            </tbody>
+          </table>
+          <% } else { %>
+            <p>No URLs have been generated yet.</p>
+          <% } %>
+        </div>
+      </div>
+
+
+      <script>
+        function logout() {
+          localStorage.removeItem('token'); 
+          window.location.href = '/login';
+        }
+      </script>
+    
   </body>
 </html>
