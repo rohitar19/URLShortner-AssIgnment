@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    
     "start": "node index.js"
   },
   "author": "",
@@ -15,7 +16,7 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^6.9.0",
     "nanoid": "^4.0.0",
-    "nodemon": "^2.0.20",
+    "nodemon": "^2.0.22",
     "shortid": "^2.2.16",
     "uuid": "^9.0.0"
   }

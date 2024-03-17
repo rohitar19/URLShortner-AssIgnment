@@ -13,14 +13,14 @@ const userRoute = require("./routes/user");
 const app = express();
 const PORT = 4000;
 
-const password = encodeURIComponent(process.env.MONGO_PASSWORD.trim());
 
-connectToMongoDB(process.env.MONGODB ?? `mongodb+srv://rohit960211:${password}@cluster0.qfbl9nq.mongodb.net/URLShortner?retryWrites=true&w=majority`).then(() =>
+
+connectToMongoDB(process.env.MONGODB_URL ?? `mongodb+srv://rohit960211:Rohit@cluster0.qfbl9nq.mongodb.net/URLShortner?retryWrites=true&w=majority`).then(() =>
   console.log("Mongodb connected")
 );
 
-app.use("Access-Control-Allows-Origin" , "*");
-app.use("Access-Control-Allows-Header" , "*");
+// app.use("Access-Control-Allows-Origin" , "*");
+// app.use("Access-Control-Allows-Header" , "*");
 
 app.set("view engine", "ejs");
 app.set("views", path.resolve("./views"));
