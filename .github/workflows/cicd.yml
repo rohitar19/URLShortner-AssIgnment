@@ -14,17 +14,17 @@ jobs:
       - name: Login to docker hub
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}     
       - name: Build Docker Image
-        run: docker build -t rohitar19/chatapp_nodejs  .
+        run: docker build -t rohitar199/chatapp_nodejs  .
       - name: Publish Image to docker hub
-        run: docker push rohitar19/chatapp_nodejs:latest 
+        run: docker push rohitar199/chatapp_nodejs:latest 
  
   deploy:
     needs: build
     runs-on: self-hosted 
     steps:
       - name: Pull image from docker hub
-        run: docker pull rohitar19/chatapp_nodejs:latest 
+        run: docker pull rohitar199/chatapp_nodejs:latest 
       - name: Delete old container
         run: docker rm -f nodejs-app-container  
       - name: Run Docker Container
-        run: docker run -d -p 4000:4000 --name nodejs-app-container -e MONGO_PASSWORD='${{ secrets.MONGO_PASSWORD }}' rohitar19/chatapp_nodejs
+        run: docker run -d -p 4000:4000 --name nodejs-app-container -e MONGO_PASSWORD='${{ secrets.MONGO_PASSWORD }}' rohitar199/chatapp_nodejs
